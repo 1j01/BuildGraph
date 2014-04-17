@@ -1,0 +1,12 @@
+
+:root {
+	background: hsl(0, 0%, 96%);
+	font-family: Helvetica;
+}
+
+node-component {
+	padding: 20px;
+	background: white;
+	box-shadow: 1px 1px 5px gray;
+	border-radius: 1px;
+}
