@@ -5,31 +5,31 @@
 
 **Grunt** is confusing and overcomplicated. Seriously.
 
-**Gulp** has a nice piped structure and clean code, but you have to install and setup plugins to get incremental building, and to do watching at all you have to create a separate task for each task you want to allow watching for and manually specify the set of files that will trigger the task.
+**Gulp** has a nice piped structure and clean code, but you have to install and setup plugins to get incremental building, and to do watching at all you have to create a separate task for each task you want to allow watching for and manually specify the set of files that will trigger the task. Same goes for cleanup: make a task and manually tell it everything it needs to clean up.
 
-Same goes for cleanup. Make a task and manually tell it everything it needs to clean up.
-
-**BuildGraph** takes Gulp's piped structure, watches files automatically, cascading changes down the build tree with minimal computation, and lets you define your build tasks without code (except where you need it).
+**BuildGraph** takes Gulp's piped structure, watches files automatically with incremental rebuilds, and lets you define your build tasks without code (except [where you need it](#custom-code)).
 
 (**[Anvil](https://github.com/anviljs/anvil.js/)** also claims incremental rebuilding of changed files and affected files.)
 
 Other build tools have CLIs; BuildGraph can be run as a command-line GUI or a standalone application.
 
 BuildGraph lets you define your tasks by typing out simple conversion commands.
-You get autocomplete for files and folders, as well as common conversions.
+You get autocomplete for files and folders, as well as conversions.
 
-Conversions get expanded to blocks as you type.
-There are source blocks, conversion blocks (step blocks? pass blocks? build blocks? compiler blocks?), and destination blocks.
+Sources, conversions, and destinations get expanded to blocks.
 
-You create a node graph with connections between blocks.
-Connections that transfer streams of files are wires, and connections that handle source maps are represented as doubled wires.
+You end up creating a node graph with connections between blocks.
+Connections transfer streams of files, and are represented as wires.
+Connections that handle source maps are represented as doubled wires.
 
-### Conversion
+### Conversions
 
-BuildGraph can infer most actions from a source and destination.
+BuildGraph can infer most conversions from a source and destination.
 
 For example, `app/*.coffee -> build/*.js` means compile coffee from app/ to build/
 whereas `app/*.coffee -> build/*` means just copy the files to build.
+
+Other conversions you need to type out, like "strip comments" or "alphabetize lines".
 
 See [Conversions.MD](./Conversions.MD) for a list of possible conversions.
 
@@ -62,9 +62,9 @@ What about my super special code?
 BuildGraph has Run Blocks.
 Run Blocks can be standalone, but they can also be source blocks, destination blocks, or conversion blocks.
 
-#### Say you want to match files based on rot13'd regexes
+#### Say you want to operate on a list of files from the output of a program
 
-You'd return a list of files, and then pipe the run block into some other block(s).
+You'd return a list or stream of files (or filenames?), and then pipe the run block into some other block(s).
 
 #### Say you want to download the latest tarball of a project on [Launchpad](launchpad.net)
 
