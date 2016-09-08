@@ -70,7 +70,7 @@ also templates maybe*
 
 Blocks are usually simple input/output, but they could have options.
 
-[SugarSS (`.sss`)](https://github.com/postcss/sugarss) would be a complex plugin hopefully sharing an interface with a SugarSS playground.
+[PostCSS](http://postcss.org/) (including [SugarSS (`.sss`)](https://github.com/postcss/sugarss)) would need a complex plugin hopefully sharing an interface with a PostCSS playground.
 
 **These transpilations are useful as one-offs in the [console](./README.md#console).
 
@@ -88,7 +88,7 @@ Files or Folder → `.tar.xz`
 
 Files or Folder → `.tar.gz.zip.7z.cab`
 
-(What if you wanted to package a set of directories seperately?)
+(What if you wanted to package a set of directories separately in batch?)
 
 ## Extraction / Decompression
 
