@@ -1,31 +1,31 @@
 
-build-graph, the cascading build system
-
-BuildGraph, a visual node-graph based build system
-==================================================
-
-It's gonna be cool. With like kinetic realismistic wiring, with like double wires for "files with sourcemaps" that can be (automatically) split into single wires for things that don't support source maps.
-
-Documentation That You Don't Need
-=================================
+# Conversions
 
 ## Copying
 
-File → File (can rename)
+### File → File (can move and rename)
 
 `ffoobar.js` → `dist/ffoo.js`
 
-Files → Folder
+special cases below
+
+### Files → Folder
 
 `ffoo.js`→ `dist/`
 
 `foo/*` → `bar/`
 
-(How do you distinguish between moving a folder to a folder vs renaming it and or stuff?)
+### Folder → Folder
+
+should disambiguate between copying to the given location and placing inside the given folder
+
+`src/foo_bar/` → `dist/foo-bar` (probably want copy and rename)
+
+`lib/` → `dist/` (might want place inside)
 
 ## Concatenation
 
-Multiple Files → File
+### Multiple Files → File
 
 `src/*.js` → `lib/bundle.js`
 
@@ -39,18 +39,18 @@ for both: `src/*` → `lib/*.min.*`
 
 
 ## Minification and Concatenation
+
 `src/*.js` → `lib/bundle.min.js`
 
-## Compilation
-`.coffee` → `.js`
-
-`um.js` → `ok.coffee`
-
-`package.cson` → `.json`
-
-`um.json` → `ok.cson`
+## Compilation / Transpilation
 
 `.coffee` → `.js`
+
+`.cson` → `.json`
+
+`.ts` → `.js`
+
+`.json5` → `.json`
 
 `.scss` → `.css`
 
@@ -58,9 +58,23 @@ for both: `src/*` → `lib/*.min.*`
 
 `.styl` → `.css`
 
-also templates maybe
+`.sss` → `.css`*
 
-## Packaging
+`.js` → `.coffee`**
+
+`.json` → `.cson`**
+
+also templates maybe*
+
+*these can be more complicated
+
+Blocks are usually simple input/output, but they could have options.
+
+[SugarSS (`.sss`)](https://github.com/postcss/sugarss) would be a complex plugin hopefully sharing an interface with a SugarSS playground.
+
+**These transpilations are useful as one-offs in the [console](./README.md#console).
+
+## Packaging / Compression
 
 Files or Folder → `.zip`
 
@@ -70,9 +84,25 @@ Files or Folder → `.gz`
 
 Files or Folder → `.tar.gz`
 
+Files or Folder → `.tar.xz`
+
 Files or Folder → `.tar.gz.zip.7z.cab`
 
 (What if you wanted to package a set of directories seperately?)
+
+## Extraction / Decompression
+
+`.zip` → Folder
+
+`.tar` → Folder
+
+`.gz` → Folder
+
+`.tar.gz` → Folder
+
+`.tar.xz` → Folder
+
+`.tar.gz.zip.7z.cab` → Folder
 
 ## Downloading?
 
@@ -84,6 +114,6 @@ Fetches the URL with [`request`](https://github.com/mikeal/request)
 
 Files → URL
 
-Sends an HTTP PUT request
+Sends an HTTP PUT request?
 
-also ftp maybe
+also FTP maybe, but this is already pretty uncommon
